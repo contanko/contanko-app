@@ -1,0 +1,31 @@
+  <p>
+    <strong>Name:</strong>
+    <%= container.instance_name %>
+  </p>
+  <p>
+    <strong>Description:</strong>
+    <%= container.description %>
+  </p>
+
+  <table class="table table-striped">
+  <tr>
+    <th>Conatiner Name</th>
+    <th>Description</th>
+    <td></td>
+   <td></td>
+  <td></td>
+  </tr>
+  <!-- <% @tanko.containers.each do |conatainer| %> -->
+    <tr>
+      <td><%= container.instance_name %></td>
+      <td><%= container.description %></td>
+     <td>
+          <%= link_to 'View', container_path(tanko.contanier), :class => 'btn btn-default' %>
+      </td><td>    <%= link_to 'Edit', edit_container_path(tanko.container), :class => 'btn btn-default' %>
+         </td><td> <%= link_to 'Destroy', container_path(tanko.container), :method => :delete, :class => 'btn btn-
+danger', data:
+ { confirm: 'Are you sure?' } %>
+        </td>
+   </tr>
+ <!-- <% end %> -->
+</table> 

@@ -1,0 +1,100 @@
+<% content_for(:header) do %>
+<% end %>
+
+
+<div class="container">
+        <div class="row">
+
+
+<div class="col-sm-3">
+<div id="user-widget" class="list-group">
+            <div class="list-group-item heading">
+               <!-- <%= image_tag("primary_logo.png", :class => "media-object img-circle") %> -->
+               <div class="text-wrap">
+                  <h4 class="list-group-item-heading"><%= @tanko.service_name %></h4>
+                  <p class="list-group-item-text"><%= @tanko.containers.size %> nodes</p>
+               </div>
+               <div class="clearfix"></div>
+            </div>
+            <%= link_to edit_tanko_path(@tanko.id), :class => "list-group-item"  do %>
+               <i class="fa fa-wrench fa-lg pull-right"></i>
+               <p class="list-group-item-text">Settings</p>
+            <%end%>
+         </div>
+      </div>
+
+
+	<div style="border: 1px solid #cccccc; padding: 0px; width: 600px; border-radius: 5px;" class="col-sm-3">
+            <!--<div class="hero-widget well well-sm">
+                <div class="icon">
+                     <i class="glyphicon glyphicon-cog"></i>
+                </div>
+                <div class="text">
+                    <var></var>
+		<label class="text-muted"></label>-->
+			<table class="table table-striped">                                                                                                                                       
+  <tr>                                                                                                                                                                     
+    <th>Container Name</th>                                                                                                                                                  
+    <th>Port Map</th>                                                                                                                                                   
+   <th>Status</th> 
+   <td></td>                                                                                                                                                              
+   <td></td>                                                                                                                                                               
+  <td></td>                                                                                                                                                                
+  </tr>                                                                                                                                                                    
+                                                                                                                                                                           
+  <% @tanko.containers.each do |container| %> 
+  <%
+     response = HTTParty.get('http://172.17.42.1:4001/v2/keys/contanko/tanko/' + @tanko.id.to_s + '/' + container.instance_type + '/' + @tanko.id.to_s + container.instance_name + container.id.to_s + '/port')
+     @body = nil
+     if response.code == 200
+       @body = JSON.parse(response.body) 
+     end  
+   
+       %>                                                                                                                             
+    <tr>                                                                                                                                                                   
+      <td><%= container.instance_name %></td>                                                                                                                              
+      <td>
+<%
+if @body.present?
+if @body['node']['nodes'].present?
+@body['node']['nodes'].each do |x|
+%>
+    <%= x['key'].split("/").last %> -> <a target ="new" href="http://<%= x['value'] %>"><%= x['value'] %></a></br>
+<%
+ end
+end
+end
+ %>
+</td>  
+      <td><%= container.status %></td>                                                                                                                              
+      <td><!--<p data-placement="top" data-toggle="tooltip" title="Start"><button class="btn btn-success btn-xs" data-title="Start" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-play"></span></button></p>-->
+      <%= link_to start_tanko_container_path(@tanko, container), method: :get, class: 'btn btn-success btn-xs' do %>                                        
+    <span class="glyphicon glyphicon-play"></span>                                                                                                                        
+  <% end %> 
+      </td>
+      <td> 
+     <%= link_to stop_tanko_container_path(@tanko, container), method: :get, class: 'btn btn-warning btn-xs' do %>                                                       
+    <span class="glyphicon glyphicon-stop"></span>
+   <% end %>
+   </td>      
+<td>
+<%= link_to [container.tanko, container], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do %>
+    <span class="glyphicon glyphicon-trash"></span>
+  <% end %>
+</td> 
+   </tr>
+  <% end %>
+</table>
+                <!--</div>
+                <div class="options">
+                </div>
+            </div>-->
+		</div>
+
+
+</div>
+</div>
+
+
+<h3>Add a container:</h3>
+<%= render 'containers/form' %>

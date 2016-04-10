@@ -1,0 +1,29 @@
+<h1>Tankos</h1>
+ 
+<table class="table table-striped">
+  <tr>
+    <th>Service Name</th>
+    <th>Description</th>
+    <td></td>
+   <td></td>
+  <td></td>
+  </tr>
+ 
+  <% @tankos.each do |tanko| %>
+    <tr>
+      <td><%= tanko.service_name %></td>
+      <td><%= tanko.description %></td>
+     <td>
+          <%= link_to 'View', tanko_path(tanko), :class => 'btn btn-default' %>
+      </td><td>    <%= link_to 'Edit', edit_tanko_path(tanko), :class => 'btn btn-default' %>
+         </td><td> <%= link_to 'Destroy', tanko_path(tanko), :method => :delete, :class => 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+        </td> 
+   </tr>
+  <% end %>
+</table>
+
+<p>
+<%= link_to new_tanko_path, class: "btn btn-primary" do %>
+    <i class="glyphicon glyphicon-plus"></i>  Create new service
+<% end %>
+</p>
