@@ -1,6 +1,7 @@
 *.rbc
 capybara-*.html
 .rspec
+.secret
 /log
 /tmp
 /db/*.sqlite3
