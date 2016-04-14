@@ -3,6 +3,12 @@
 # Fail hard and fast
 set -eo pipefail
 
+if [ ! -f .secret ]; then
+    echo "File not found!"
+    rake secret > .secret
+    rake db:seed
+fi
+
 value=`cat .secret`
 export SECRET_KEY_BASE=$value
 
