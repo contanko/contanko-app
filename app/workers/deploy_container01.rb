@@ -105,8 +105,8 @@ output = File.open( "/tmp/#{instance_name_id}-stalker.service","w" )
 output << unitfilestalker
 output.close
 
-cmdstalker = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 submit /tmp/#{instance_name_id}-stalker.service"                                                      
-cmd2stalker = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 start /tmp/#{instance_name_id}-stalker.service"
+cmdstalker = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 submit /tmp/#{instance_name_id}-stalker.service"                                                      
+cmd2stalker = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 start /tmp/#{instance_name_id}-stalker.service"
 
 end
 
@@ -142,8 +142,8 @@ output = File.open( "/tmp/#{instance_name_id}.service","w" )
 output << unitfile
 output.close
 
-cmd = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 submit /tmp/#{instance_name_id}.service"
-cmd2 = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 start /tmp/#{instance_name_id}.service"
+cmd = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 submit /tmp/#{instance_name_id}.service"
+cmd2 = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 start /tmp/#{instance_name_id}.service"
 
 # Put the results in a redis list so we can see them on the web interface at each new request
 redis.rpush cid, "Start: " + cmd

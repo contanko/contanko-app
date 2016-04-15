@@ -20,7 +20,7 @@ begin
 instance_name_id = tid + instance_name + cid
 
 
-cmd = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 stop #{instance_name_id}.service"
+cmd = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 stop #{instance_name_id}.service"
 
 # Put the results in a redis list so we can see them on the web interface at each new request
 redis.rpush cid, "Start: " + cmd

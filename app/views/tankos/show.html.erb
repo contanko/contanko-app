@@ -44,7 +44,7 @@
                                                                                                                                                                            
   <% @tanko.containers.each do |container| %> 
   <%
-     response = HTTParty.get('http://172.17.0.1:4001/v2/keys/contanko/tanko/' + @tanko.id.to_s + '/' + container.instance_type + '/' + @tanko.id.to_s + container.instance_name + container.id.to_s + '/port')
+     response = HTTParty.get('http://' + ENV["HOST_GATEWAY"] + ':4001/v2/keys/contanko/tanko/' + @tanko.id.to_s + '/' + container.instance_type + '/' + @tanko.id.to_s + container.instance_name + container.id.to_s + '/port')
      @body = nil
      if response.code == 200
        @body = JSON.parse(response.body) 

@@ -15,6 +15,5 @@
 //= require jquery_ujs
 //= require bootstrap 
 //= require common
-//= require turbolinks
 //= require Chart.min
 //= require_tree .

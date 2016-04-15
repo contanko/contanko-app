@@ -36,8 +36,8 @@ output = File.open( "/tmp/#{instance_name_id}-keyclean.service","w" )
 output << unitfilekeyclean                                                                                                                                                        
 output.close                                                                                                                                                                      
                                                                                                                                                                                   
-cmdkeyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 submit /tmp/#{instance_name_id}-keyclean.service"                                                      
-cmd2keyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 start /tmp/#{instance_name_id}-keyclean.service"                                      
+cmdkeyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 submit /tmp/#{instance_name_id}-keyclean.service"                                                      
+cmd2keyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 start /tmp/#{instance_name_id}-keyclean.service"                                      
                                                                                                                                                                                   
   valuekeyclean = `#{cmdkeyclean} 2>&1`                                                                                                                                                            
   value2keyclean = `#{cmd2keyclean} 2>&1`                                                                                                                                         
@@ -47,8 +47,8 @@ cmd2keyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.
 
 createcomp = ""
 
-cmd = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 destroy #{instance_name_id}.service"
-cmd2 = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 unload #{instance_name_id}.service"
+cmd = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 destroy #{instance_name_id}.service"
+cmd2 = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 unload #{instance_name_id}.service"
 
 # Put the results in a redis list so we can see them on the web interface at each new request
 redis.rpush cid, "Start: " + cmd
@@ -79,9 +79,9 @@ output = File.open( "/tmp/#{instance_name_id}-cleanup.service","w" )
 output << unitfilecleanup
 output.close
 
-cmdcleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 submit /tmp/#{instance_name_id}-cleanup.service"
+cmdcleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 submit /tmp/#{instance_name_id}-cleanup.service"
 
-cmd2cleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 start /tmp/#{instance_name_id}-cleanup.service"
+cmd2cleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 start /tmp/#{instance_name_id}-cleanup.service"
 
   valuecleanup = `#{cmdcleanup} 2>&1`
 
@@ -90,15 +90,15 @@ cmd2cleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.1
   sleep(10)
 end
 
-cmdstalker = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 destroy #{instance_name_id}-stalker.service"
+cmdstalker = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 destroy #{instance_name_id}-stalker.service"
 
-cmd2stalker = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 unload #{instance_name_id}-stalker.service"
+cmd2stalker = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 unload #{instance_name_id}-stalker.service"
 
-cmdcleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 destroy #{instance_name_id}-cleanup.service"
-cmd2cleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 unload #{instance_name_id}-cleanup.service"
+cmdcleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 destroy #{instance_name_id}-cleanup.service"
+cmd2cleanup = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 unload #{instance_name_id}-cleanup.service"
 
-cmdkeyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 destroy #{instance_name_id}-keyclean.service"
-cmd2keyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://172.17.42.1:4001 unload #{instance_name_id}-keyclean.service"
+cmdkeyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 destroy #{instance_name_id}-keyclean.service"
+cmd2keyclean = "vendor/fleet-v0.11.5-linux-amd64/fleetctl --endpoint http://"+ ENV["HOST_GATEWAY"] +":4001 unload #{instance_name_id}-keyclean.service"
 
 valuestalker = `#{cmdstalker} 2>&1`                                                                                                                                                             
 value2stalker = `#{cmd2stalker} 2>&1`
