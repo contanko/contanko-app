@@ -17,8 +17,8 @@ class TankosController < ApplicationController
     @tanko = Tanko.find(params[:id])
     @containers_list = @tanko.containers.all
     
-    response = HTTParty.get('http://172.17.42.1:4001/v2/keys/contanko/tanko/36/fe')
-    @body = JSON.parse(response.body)
+    #response = HTTParty.get('http://172.17.42.1:4001/v2/keys/contanko/tanko/36/fe')
+    #@body = JSON.parse(response.body)
     
      
    end
