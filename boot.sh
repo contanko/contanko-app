@@ -8,6 +8,8 @@ if [ ! -f .secret ]; then
     #rake db:seed
 fi
 
+rake db:seed
+
 value=`cat .secret`
 export SECRET_KEY_BASE=$value
 
@@ -27,7 +29,6 @@ bundle exec sidekiq &
 
 rails server -b 0.0.0.0
 
-rake db:seed
 
 # Tail all log files
 tail -f /usr/src/app/log/*.log
