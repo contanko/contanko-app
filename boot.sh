@@ -5,8 +5,8 @@ set -eo pipefail
 
 if [ ! -f .secret ]; then
     rake secret > .secret
-    echo "[rails] seed db"
-    rake db:seed
+    #echo "[rails] seed db"
+    #rake db:seed
 fi
 
 value=`cat .secret`
@@ -20,14 +20,12 @@ export HOST_GATEWAY=$value2
 
 echo "[contanko] booting container."
 
-
 # Start redis
 echo "[redis] starting redis service..."
 service redis-server start
 bundle exec sidekiq &
 
 rails server -b 0.0.0.0
-
 
 # Tail all log files
 tail -f /usr/src/app/log/*.log
