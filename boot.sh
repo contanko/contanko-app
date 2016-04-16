@@ -5,10 +5,9 @@ set -eo pipefail
 
 if [ ! -f .secret ]; then
     rake secret > .secret
-    #rake db:seed
+    echo "[rails] seed db"
+    rake db:seed
 fi
-
-rake db:seed
 
 value=`cat .secret`
 export SECRET_KEY_BASE=$value
