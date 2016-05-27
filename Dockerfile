@@ -23,11 +23,11 @@ RUN bundle install
 #COPY . /usr/src/app
 
 RUN bundle exec rake assets:precompile
-#RUN bundle exec sidekiq 
+#RUN bundle exec sidekiq
 #RUN rake secret > .secret
 
 RUN rake db:migrate
-#RUN rake db:seed
+RUN rake db:seed
 
 
 #ENV SECRET_KEY_BASE cat .secret
